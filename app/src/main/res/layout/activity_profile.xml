@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/profile_main"
+    android:background="@color/bg_dark">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp">
+
+            <!-- Header -->
+            <TextView
+                android:id="@+id/tv_app_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="FitFuel"
+                android:textColor="@color/primary_green"
+                android:textSize="18sp"
+                android:textStyle="bold|italic"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_card_unselected"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="4dp"
+                app:layout_constraintEnd_toStartOf="@id/iv_profile_small"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginEnd="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="7 DAY STREAK"
+                    android:textColor="@color/primary_green"
+                    android:textSize="10sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/iv_profile_small"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/bg_card_unselected"
+                android:src="@android:drawable/ic_menu_myplaces"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Profile Info -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_avatar_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_app_logo">
+
+                <ImageView
+                    android:id="@+id/iv_avatar"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:padding="4dp"
+                    android:src="@android:drawable/ic_menu_myplaces"
+                    android:background="@drawable/bg_card_selected"
+                    android:backgroundTint="@color/primary_green"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@android:drawable/btn_star_big_on"
+                    app:tint="@color/primary_green"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_avatar"
+                    app:layout_constraintEnd_toEndOf="@id/iv_avatar" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tv_profile_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="User Name"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cl_avatar_container" />
+
+            <TextView
+                android:id="@+id/tv_profile_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="user@example.com"
+                android:textColor="@color/white"
+                android:alpha="0.6"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_profile_name" />
+
+            <TextView
+                android:id="@+id/tv_member_badge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_capsule_unselected"
+                android:backgroundTint="#1A3DD598"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="4dp"
+                android:text="PREMIUM MEMBER"
+                android:textColor="@color/primary_green"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_profile_email" />
+
+            <!-- Weekly Momentum -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_streak_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/bg_card_unselected"
+                android:padding="20dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_member_badge">
+
+                <View
+                    android:layout_width="4dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/primary_green"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_streak_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="WEEKLY MOMENTUM"
+                    android:textColor="@color/white"
+                    android:alpha="0.4"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="7 Day Streak"
+                    android:textColor="@color/white"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@id/tv_streak_label"
+                    app:layout_constraintTop_toBottomOf="@id/tv_streak_label" />
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@android:drawable/ic_menu_report_image"
+                    app:tint="@color/primary_green"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Stats -->
+            <LinearLayout
+                android:id="@+id/ll_stats"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/cl_streak_card">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="12dp"
+                    android:background="@drawable/bg_card_unselected"
+                    android:padding="16dp">
+                    <View android:layout_width="3dp" android:layout_height="match_parent" android:background="@color/primary_green" app:layout_constraintStart_toStartOf="parent"/>
+                    <TextView android:id="@+id/tv_w_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="12dp" android:text="WORKOUTS" android:textColor="@color/white" android:alpha="0.6" android:textSize="9sp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"/>
+                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" app:layout_constraintStart_toStartOf="@id/tv_w_label" app:layout_constraintTop_toBottomOf="@id/tv_w_label">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="12" android:textColor="@color/white" android:textSize="18sp" android:textStyle="bold" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="4dp" android:text="DONE" android:textColor="@color/primary_green" android:textSize="10sp" android:textStyle="bold" />
+                    </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_card_unselected"
+                    android:padding="16dp">
+                    <View android:layout_width="3dp" android:layout_height="match_parent" android:background="@color/primary_green" app:layout_constraintStart_toStartOf="parent"/>
+                    <TextView android:id="@+id/tv_n_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="12dp" android:text="NUTRITION" android:textColor="@color/white" android:alpha="0.6" android:textSize="9sp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"/>
+                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" app:layout_constraintStart_toStartOf="@id/tv_n_label" app:layout_constraintTop_toBottomOf="@id/tv_n_label">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="45" android:textColor="@color/white" android:textSize="18sp" android:textStyle="bold" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="4dp" android:text="LOGGED" android:textColor="@color/primary_green" android:textSize="10sp" android:textStyle="bold" />
+                    </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+
+            <!-- Account Settings -->
+            <TextView
+                android:id="@+id/tv_settings_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="ACCOUNT SETTINGS"
+                android:textColor="@color/white"
+                android:alpha="0.5"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ll_stats" />
+
+            <!-- Setting Items -->
+            <LinearLayout
+                android:id="@+id/ll_settings_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/tv_settings_label">
+
+                <!-- Edit Goals -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/bg_card_unselected"
+                    android:padding="16dp">
+                    <ImageView android:id="@+id/iv_goal_icon" android:layout_width="32dp" android:layout_height="32dp" android:background="#223DD598" android:padding="6dp" android:src="@android:drawable/ic_menu_edit" app:tint="@color/primary_green" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:text="Edit Goals" android:textColor="@color/white" android:textSize="16sp" app:layout_constraintStart_toEndOf="@id/iv_goal_icon" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
+                    <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@android:drawable/ic_media_next" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" app:tint="@color/white" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- Notifications -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/bg_card_unselected"
+                    android:padding="16dp">
+                    <ImageView android:id="@+id/iv_notif_icon" android:layout_width="32dp" android:layout_height="32dp" android:background="#223DD598" android:padding="6dp" android:src="@android:drawable/ic_popup_reminder" app:tint="@color/primary_green" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:text="Notifications" android:textColor="@color/white" android:textSize="16sp" app:layout_constraintStart_toEndOf="@id/iv_notif_icon" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
+                    <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@android:drawable/ic_media_next" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" app:tint="@color/white" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- Subscription -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/bg_card_unselected"
+                    android:padding="16dp">
+                    <ImageView android:id="@+id/iv_sub_icon" android:layout_width="32dp" android:layout_height="32dp" android:background="#223DD598" android:padding="6dp" android:src="@android:drawable/btn_star_big_on" app:tint="@color/primary_green" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:text="Subscription" android:textColor="@color/white" android:textSize="16sp" app:layout_constraintStart_toEndOf="@id/iv_sub_icon" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginEnd="8dp" android:text="MANAGE" android:textColor="@color/primary_green" android:textSize="9sp" android:textStyle="bold" app:layout_constraintEnd_toStartOf="@id/iv_sub_next" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
+                    <ImageView android:id="@+id/iv_sub_next" android:layout_width="16dp" android:layout_height="16dp" android:src="@android:drawable/ic_media_next" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" app:tint="@color/white" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- Help -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    android:background="@drawable/bg_card_unselected"
+                    android:padding="16dp">
+                    <ImageView android:id="@+id/iv_help_icon" android:layout_width="32dp" android:layout_height="32dp" android:background="#223DD598" android:padding="6dp" android:src="@android:drawable/ic_menu_help" app:tint="@color/primary_green" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:text="Help &amp; Support" android:textColor="@color/white" android:textSize="16sp" app:layout_constraintStart_toEndOf="@id/iv_help_icon" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
+                    <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@android:drawable/ic_media_next" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" app:tint="@color/white" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- Logout -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_logout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#1AFF4B4B"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="16dp">
+                    <ImageView android:id="@+id/iv_logout_icon" android:layout_width="32dp" android:layout_height="32dp" android:src="@android:drawable/ic_lock_power_off" app:tint="@color/logout_red" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:text="Logout" android:textColor="@color/logout_red" android:textSize="16sp" android:textStyle="bold" app:layout_constraintStart_toEndOf="@id/iv_logout_icon" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

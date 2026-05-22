@@ -1,0 +1,12 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme override for Dark Mode -->
+    <style name="Base.Theme.Fitt_buddy" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Theme Colors for Dark Mode -->
+        <item name="android:windowBackground">@color/background</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+
+        <!-- Primary Accent remains the same -->
+        <item name="colorPrimary">@color/primary_green</item>
+    </style>
+</resources>

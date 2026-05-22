@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Shared Colors -->
+    <color name="primary_green">#3DD598</color>
+    <color name="primary_green_dark">#2FB37F</color>
+    <color name="primary_green_alpha">#333DD598</color>
+    <color name="secondary_green">#28A745</color>
+    <color name="protein_orange">#FF8C00</color>
+    <color name="carbs_blue">#00BFFF</color>
+    <color name="fats_yellow">#FFD700</color>
+    <color name="logout_red">#FF4B4B</color>
+
+    <!-- UI Accent Colors -->
+    <color name="info_stroke">#3DD598</color>
+
+    <!-- Semantic Colors (Default to Dark Mode) -->
+    <color name="background">@color/bg_dark</color>
+    <color name="card_bg">@color/card_dark</color>
+    <color name="text_primary">@color/text_primary_dark</color>
+    <color name="text_secondary">@color/text_secondary_dark</color>
+
+    <!-- Specific Light Mode Colors -->
+    <color name="bg_light">#F8F9FA</color>
+    <color name="card_light">#FFFFFF</color>
+    <color name="text_primary_light">#121212</color>
+    <color name="text_secondary_light">#6C757D</color>
+
+    <!-- Specific Dark Mode Colors -->
+    <color name="bg_dark">#121212</color>
+    <color name="card_dark">#1C1C1E</color>
+    <color name="text_primary_dark">#FFFFFF</color>
+    <color name="text_secondary_dark">#B3FFFFFF</color>
+</resources>

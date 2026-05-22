@@ -1,0 +1,19 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Fitt_buddy" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Theme Colors -->
+        <item name="android:windowBackground">@color/background</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+
+        <!-- Semantic Colors for use in Layouts -->
+        <item name="colorPrimary">@color/primary_green</item>
+
+        <!-- Material 3 Navigation Bar indicator color is controlled by colorSecondaryContainer -->
+        <item name="colorSecondaryContainer">@color/primary_green_alpha</item>
+        <!-- On secondary container color (icon color when selected) -->
+        <item name="colorOnSecondaryContainer">@color/primary_green</item>
+    </style>
+
+    <style name="Theme.Fitt_buddy" parent="Base.Theme.Fitt_buddy" />
+</resources>
