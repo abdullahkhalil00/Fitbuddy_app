@@ -164,7 +164,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="7 Day Streak"
+                    android:text="7 Days of Discipline"
                     android:textColor="@color/white"
                     android:textSize="22sp"
                     android:textStyle="bold"
@@ -198,10 +198,10 @@
                     android:background="@drawable/bg_card_unselected"
                     android:padding="16dp">
                     <View android:layout_width="3dp" android:layout_height="match_parent" android:background="@color/primary_green" app:layout_constraintStart_toStartOf="parent"/>
-                    <TextView android:id="@+id/tv_w_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="12dp" android:text="WORKOUTS" android:textColor="@color/white" android:alpha="0.6" android:textSize="9sp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"/>
+                    <TextView android:id="@+id/tv_w_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="12dp" android:text="NEW MIND SET" android:textColor="@color/white" android:alpha="0.6" android:textSize="9sp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"/>
                     <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" app:layout_constraintStart_toStartOf="@id/tv_w_label" app:layout_constraintTop_toBottomOf="@id/tv_w_label">
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="12" android:textColor="@color/white" android:textSize="18sp" android:textStyle="bold" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="4dp" android:text="DONE" android:textColor="@color/primary_green" android:textSize="10sp" android:textStyle="bold" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="7" android:textColor="@color/white" android:textSize="18sp" android:textStyle="bold" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="4dp" android:text="DAYS" android:textColor="@color/primary_green" android:textSize="10sp" android:textStyle="bold" />
                     </LinearLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -212,10 +212,10 @@
                     android:background="@drawable/bg_card_unselected"
                     android:padding="16dp">
                     <View android:layout_width="3dp" android:layout_height="match_parent" android:background="@color/primary_green" app:layout_constraintStart_toStartOf="parent"/>
-                    <TextView android:id="@+id/tv_n_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="12dp" android:text="NUTRITION" android:textColor="@color/white" android:alpha="0.6" android:textSize="9sp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"/>
+                    <TextView android:id="@+id/tv_n_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="12dp" android:text="NEW BODY" android:textColor="@color/white" android:alpha="0.6" android:textSize="9sp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"/>
                     <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" app:layout_constraintStart_toStartOf="@id/tv_n_label" app:layout_constraintTop_toBottomOf="@id/tv_n_label">
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="45" android:textColor="@color/white" android:textSize="18sp" android:textStyle="bold" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="4dp" android:text="LOGGED" android:textColor="@color/primary_green" android:textSize="10sp" android:textStyle="bold" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="4dp" android:text="DAYS" android:textColor="@color/primary_green" android:textSize="10sp" android:textStyle="bold" />
                     </LinearLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
@@ -245,10 +245,13 @@
 
                 <!-- Edit Goals -->
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_edit_goals"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="12dp"
                     android:background="@drawable/bg_card_unselected"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:padding="16dp">
                     <ImageView android:id="@+id/iv_goal_icon" android:layout_width="32dp" android:layout_height="32dp" android:background="#223DD598" android:padding="6dp" android:src="@android:drawable/ic_menu_edit" app:tint="@color/primary_green" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:text="Edit Goals" android:textColor="@color/white" android:textSize="16sp" app:layout_constraintStart_toEndOf="@id/iv_goal_icon" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
@@ -257,10 +260,13 @@
 
                 <!-- Notifications -->
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_notifications"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="12dp"
                     android:background="@drawable/bg_card_unselected"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:padding="16dp">
                     <ImageView android:id="@+id/iv_notif_icon" android:layout_width="32dp" android:layout_height="32dp" android:background="#223DD598" android:padding="6dp" android:src="@android:drawable/ic_popup_reminder" app:tint="@color/primary_green" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:text="Notifications" android:textColor="@color/white" android:textSize="16sp" app:layout_constraintStart_toEndOf="@id/iv_notif_icon" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
@@ -269,10 +275,13 @@
 
                 <!-- Subscription -->
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_subscription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="12dp"
                     android:background="@drawable/bg_card_unselected"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:padding="16dp">
                     <ImageView android:id="@+id/iv_sub_icon" android:layout_width="32dp" android:layout_height="32dp" android:background="#223DD598" android:padding="6dp" android:src="@android:drawable/btn_star_big_on" app:tint="@color/primary_green" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:text="Subscription" android:textColor="@color/white" android:textSize="16sp" app:layout_constraintStart_toEndOf="@id/iv_sub_icon" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
@@ -282,10 +291,13 @@
 
                 <!-- Help -->
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_help_support"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="24dp"
                     android:background="@drawable/bg_card_unselected"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:padding="16dp">
                     <ImageView android:id="@+id/iv_help_icon" android:layout_width="32dp" android:layout_height="32dp" android:background="#223DD598" android:padding="6dp" android:src="@android:drawable/ic_menu_help" app:tint="@color/primary_green" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:text="Help &amp; Support" android:textColor="@color/white" android:textSize="16sp" app:layout_constraintStart_toEndOf="@id/iv_help_icon" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>

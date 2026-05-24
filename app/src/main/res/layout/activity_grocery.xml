@@ -88,7 +88,7 @@
                 android:id="@+id/tv_est_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TODAY COST"
+                android:text="TODAY'S COST"
                 android:textColor="@color/white"
                 android:alpha="0.4"
                 android:textSize="10sp"
