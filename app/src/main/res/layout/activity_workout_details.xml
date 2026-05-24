@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/workout_main"
     android:background="@color/bg_dark">
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nsv_workout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,12 +20,22 @@
 
             <!-- Header -->
             <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@android:drawable/ic_menu_revert"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/white" />
+
+            <ImageView
                 android:id="@+id/iv_profile"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
+                android:layout_marginStart="12dp"
                 android:background="@drawable/bg_card_unselected"
                 android:src="@android:drawable/ic_menu_myplaces"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@id/iv_back"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -40,340 +51,176 @@
                 app:layout_constraintStart_toEndOf="@id/iv_profile"
                 app:layout_constraintTop_toTopOf="@id/iv_profile" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
+            <!-- Week Header -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_week_header"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_card_unselected"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="4dp"
-                app:layout_constraintBottom_toBottomOf="@id/iv_profile"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/iv_profile">
-
-                <ImageView
-                    android:layout_width="12dp"
-                    android:layout_height="12dp"
-                    android:src="@android:drawable/btn_star_big_on"
-                    app:tint="@color/info_stroke" />
+                android:layout_marginTop="24dp"
+                app:layout_constraintTop_toBottomOf="@id/iv_profile">
 
                 <TextView
+                    android:id="@+id/tv_current_week"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:text="7 DAY STREAK"
-                    android:textColor="@color/primary_green"
-                    android:textSize="9sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
+                    android:text="WEEK 1"
+                    android:textColor="@color/white"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
-            <!-- Workout Info -->
-            <TextView
-                android:id="@+id/tv_workout_tag"
-                android:layout_width="wrap_content"
+                <ImageButton
+                    android:id="@+id/btn_prev_week"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@android:color/transparent"
+                    android:src="@android:drawable/ic_media_previous"
+                    app:layout_constraintEnd_toStartOf="@id/btn_next_week"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:tint="@color/white" />
+
+                <ImageButton
+                    android:id="@+id/btn_next_week"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:background="@android:color/transparent"
+                    android:src="@android:drawable/ic_media_next"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:tint="@color/white" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Day Selector -->
+            <HorizontalScrollView
+                android:id="@+id/hsv_days"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:background="@drawable/bg_capsule_unselected"
-                android:backgroundTint="#1A3DD598"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="6dp"
-                android:text="INTERMEDIATE • 35 MIN"
-                android:textColor="@color/primary_green"
-                android:textSize="10sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iv_profile" />
+                android:layout_marginTop="16dp"
+                android:scrollbars="none"
+                app:layout_constraintTop_toBottomOf="@id/cl_week_header">
+                <LinearLayout
+                    android:id="@+id/ll_days_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" />
+            </HorizontalScrollView>
 
             <TextView
                 android:id="@+id/tv_workout_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Upper Body\nPower"
+                android:layout_marginTop="32dp"
+                android:text="LOADING..."
                 android:textColor="@color/white"
-                android:textSize="36sp"
+                android:textSize="32sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_workout_tag" />
+                app:layout_constraintTop_toBottomOf="@id/hsv_days" />
 
-            <TextView
-                android:id="@+id/tv_workout_desc"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:alpha="0.6"
-                android:text="Build explosive strength and muscle density in your chest, shoulders, and triceps."
-                android:textColor="@color/white"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_workout_title" />
-
-            <!-- Equipment Tags -->
-            <LinearLayout
-                android:id="@+id/ll_equipment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:orientation="horizontal"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_workout_desc">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_capsule_selected"
-                    android:backgroundTint="@color/info_stroke"
-                    android:paddingHorizontal="12dp"
-                    android:paddingVertical="4dp"
-                    android:text="HOME"
-                    android:textColor="@color/bg_dark"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:background="@drawable/bg_info_box"
-                    android:paddingHorizontal="12dp"
-                    android:paddingVertical="4dp"
-                    android:text="GYM"
-                    android:textColor="@color/white"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <!-- Routine Section -->
             <TextView
                 android:id="@+id/tv_routine_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:text="WORKOUT ROUTINE"
+                android:layout_marginTop="24dp"
+                android:text="TODAY'S EXERCISES"
                 android:textColor="@color/white"
-                android:textSize="14sp"
+                android:alpha="0.6"
+                android:textSize="12sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ll_equipment" />
+                app:layout_constraintTop_toBottomOf="@id/tv_workout_title" />
 
-            <TextView
-                android:id="@+id/tv_exercises_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="4 EXERCISES TOTAL"
-                android:textColor="@color/primary_green"
-                android:textSize="10sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@id/tv_routine_label"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_routine_label" />
-
-            <!-- Exercise Cards -->
-            <LinearLayout
-                android:id="@+id/ll_exercises"
+            <!-- Exercises List -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_exercises"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="@id/tv_routine_label">
-
-                <!-- Bench Press -->
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:background="@drawable/bg_card_unselected"
-                    android:padding="16dp">
-
-                    <ImageView
-                        android:id="@+id/iv_bench_press"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:background="#121212"
-                        android:src="@android:drawable/ic_dialog_map"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/tv_bench_press_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:text="Bench Press"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toEndOf="@id/iv_bench_press"
-                        app:layout_constraintTop_toTopOf="@id/iv_bench_press" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:orientation="horizontal"
-                        app:layout_constraintStart_toStartOf="@id/tv_bench_press_title"
-                        app:layout_constraintTop_toBottomOf="@id/tv_bench_press_title">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="SETS" android:textColor="@color/white" android:alpha="0.4" android:textSize="8sp" android:textStyle="bold" />
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="4" android:textColor="@color/white" android:textSize="14sp" android:textStyle="bold" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:orientation="vertical">
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="REPS" android:textColor="@color/white" android:alpha="0.4" android:textSize="8sp" android:textStyle="bold" />
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="8-10" android:textColor="@color/white" android:textSize="14sp" android:textStyle="bold" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:orientation="vertical">
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="REST" android:textColor="@color/white" android:alpha="0.4" android:textSize="8sp" android:textStyle="bold" />
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="90s" android:textColor="@color/primary_green" android:textSize="14sp" android:textStyle="bold" />
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@android:drawable/ic_media_next"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:tint="@color/white" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <!-- Overhead Press -->
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:background="@drawable/bg_card_unselected"
-                    android:padding="16dp">
-
-                    <ImageView
-                        android:id="@+id/iv_overhead_press"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:background="#121212"
-                        android:src="@android:drawable/ic_dialog_map"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/tv_overhead_press_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:text="Overhead Press"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toEndOf="@id/iv_overhead_press"
-                        app:layout_constraintTop_toTopOf="@id/iv_overhead_press" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:orientation="horizontal"
-                        app:layout_constraintStart_toStartOf="@id/tv_overhead_press_title"
-                        app:layout_constraintTop_toBottomOf="@id/tv_overhead_press_title">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="SETS" android:textColor="@color/white" android:alpha="0.4" android:textSize="8sp" android:textStyle="bold" />
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="3" android:textColor="@color/white" android:textSize="14sp" android:textStyle="bold" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:orientation="vertical">
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="REPS" android:textColor="@color/white" android:alpha="0.4" android:textSize="8sp" android:textStyle="bold" />
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="12" android:textColor="@color/white" android:textSize="14sp" android:textStyle="bold" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:orientation="vertical">
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="REST" android:textColor="@color/white" android:alpha="0.4" android:textSize="8sp" android:textStyle="bold" />
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="60s" android:textColor="@color/primary_green" android:textSize="14sp" android:textStyle="bold" />
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@android:drawable/ic_media_next"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:tint="@color/white" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </LinearLayout>
-
-            <!-- Upcoming Hint -->
-            <LinearLayout
-                android:id="@+id/ll_upcoming"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@id/ll_exercises">
-
-                <View
-                    android:layout_width="2dp"
-                    android:layout_height="40dp"
-                    android:background="@color/primary_green"
-                    android:alpha="0.3" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="Upcoming: Weighted Dips &amp; Tricep Pushdowns"
-                    android:textColor="@color/white"
-                    android:alpha="0.4"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <!-- Start Workout Button -->
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_start_workout"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/bg_get_started"
-                android:drawableStart="@android:drawable/ic_media_play"
-                android:drawablePadding="-40dp"
-                android:paddingStart="60dp"
-                android:text="START WORKOUT"
-                android:textColor="@color/bg_dark"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ll_upcoming" />
+                app:layout_constraintTop_toBottomOf="@id/tv_routine_label"
+                tools:listitem="@layout/item_exercise" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <!-- Full Screen Timer Overlay -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_timer_overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F2121212"
+        android:visibility="gone"
+        android:elevation="20dp"
+        android:clickable="true"
+        android:focusable="true">
+
+        <ImageButton
+            android:id="@+id/btn_close_timer"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_margin="16dp"
+            android:background="@android:color/transparent"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
+
+        <ProgressBar
+            android:id="@+id/pb_timer_circle"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="280dp"
+            android:layout_height="280dp"
+            android:indeterminate="false"
+            android:progressDrawable="@drawable/bg_timer_circle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_countdown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="05:00"
+            android:textColor="@color/white"
+            android:textSize="64sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/pb_timer_circle"
+            app:layout_constraintEnd_toEndOf="@id/pb_timer_circle"
+            app:layout_constraintStart_toStartOf="@id/pb_timer_circle"
+            app:layout_constraintTop_toTopOf="@id/pb_timer_circle" />
+
+        <TextView
+            android:id="@+id/tv_timer_exercise_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:text="Exercise Name"
+            android:textColor="@color/white"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/pb_timer_circle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_stop_resume"
+            android:layout_width="200dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="48dp"
+            android:background="@drawable/bg_get_started"
+            android:text="STOP"
+            android:textColor="@color/bg_dark"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pb_timer_circle" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:id="@+id/recipes_main"
     android:layout_height="match_parent"
     android:background="@color/bg_dark">
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nsv_workout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -40,471 +41,163 @@
                 app:layout_constraintStart_toEndOf="@id/iv_profile"
                 app:layout_constraintTop_toTopOf="@id/iv_profile" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
+            <!-- Week Header: Text on Left, Simple Arrow on Right -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_week_header"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_card_unselected"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="4dp"
-                app:layout_constraintBottom_toBottomOf="@id/iv_profile"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/iv_profile">
-
-                <ImageView
-                    android:layout_width="12dp"
-                    android:layout_height="12dp"
-                    android:src="@android:drawable/btn_star_big_on"
-                    app:tint="@color/info_stroke" />
+                android:layout_marginTop="24dp"
+                app:layout_constraintTop_toBottomOf="@id/iv_profile">
 
                 <TextView
+                    android:id="@+id/tv_current_week"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:text="7 DAY STREAK"
-                    android:textColor="@color/primary_green"
-                    android:textSize="9sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
+                    android:text="WEEK 1"
+                    android:textColor="@color/white"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
-            <!-- Month and Today -->
-            <TextView
-                android:id="@+id/tv_month"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="September"
-                android:textColor="@color/white"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iv_profile" />
+                <ImageView
+                    android:id="@+id/btn_next_week"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@android:drawable/ic_media_next"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:tint="@color/white" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/tv_today_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Today, 24th"
-                android:textColor="@color/white"
-                android:alpha="0.5"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="@id/tv_month"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_month" />
-
-            <!-- Calendar Row -->
-            <LinearLayout
-                android:id="@+id/ll_calendar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@id/tv_month">
-
-                <!-- Mon 22 -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="70dp"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/bg_card_unselected"
-                    android:gravity="center"
-                    android:orientation="vertical">
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="MON" android:textColor="@color/white" android:alpha="0.4" android:textSize="10sp" android:textStyle="bold" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="22" android:textColor="@color/white" android:textSize="16sp" android:textStyle="bold" />
-                </LinearLayout>
-
-                <!-- Tue 23 -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="70dp"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/bg_card_unselected"
-                    android:gravity="center"
-                    android:orientation="vertical">
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="TUE" android:textColor="@color/white" android:alpha="0.4" android:textSize="10sp" android:textStyle="bold" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="23" android:textColor="@color/white" android:textSize="16sp" android:textStyle="bold" />
-                </LinearLayout>
-
-                <!-- Wed 24 (Selected) -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="70dp"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/bg_card_selected"
-                    android:backgroundTint="@color/primary_green"
-                    android:gravity="center"
-                    android:orientation="vertical">
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="WED" android:textColor="@color/bg_dark" android:textSize="10sp" android:textStyle="bold" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="24" android:textColor="@color/bg_dark" android:textSize="16sp" android:textStyle="bold" />
-                </LinearLayout>
-
-                <!-- Thu 25 -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="70dp"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/bg_card_unselected"
-                    android:gravity="center"
-                    android:orientation="vertical">
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="THU" android:textColor="@color/white" android:alpha="0.4" android:textSize="10sp" android:textStyle="bold" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="25" android:textColor="@color/white" android:textSize="16sp" android:textStyle="bold" />
-                </LinearLayout>
-
-                <!-- Fri 26 -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="70dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_card_unselected"
-                    android:gravity="center"
-                    android:orientation="vertical">
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="FRI" android:textColor="@color/white" android:alpha="0.4" android:textSize="10sp" android:textStyle="bold" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="26" android:textColor="@color/white" android:textSize="16sp" android:textStyle="bold" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <!-- Macros Summary Row -->
-            <LinearLayout
-                android:id="@+id/ll_macros"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@id/ll_calendar">
-
-                <!-- Protein -->
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="0dp"
-                    android:layout_height="70dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_card_unselected"
-                    android:layout_marginEnd="8dp">
-                    <View android:layout_width="4dp" android:layout_height="match_parent" android:background="@color/protein_orange" app:layout_constraintStart_toStartOf="parent"/>
-                    <TextView android:id="@+id/tv_p_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="10dp" android:layout_marginTop="10dp" android:text="PROTEIN" android:textColor="@color/white" android:alpha="0.6" android:textSize="8sp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"/>
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="142g" android:textColor="@color/white" android:textSize="16sp" android:textStyle="bold" app:layout_constraintStart_toStartOf="@id/tv_p_label" app:layout_constraintTop_toBottomOf="@id/tv_p_label"/>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <!-- Carbs -->
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="0dp"
-                    android:layout_height="70dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_card_unselected"
-                    android:layout_marginEnd="8dp">
-                    <View android:layout_width="4dp" android:layout_height="match_parent" android:background="@color/carbs_blue" app:layout_constraintStart_toStartOf="parent"/>
-                    <TextView android:id="@+id/tv_c_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="10dp" android:layout_marginTop="10dp" android:text="CARBS" android:textColor="@color/white" android:alpha="0.6" android:textSize="8sp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"/>
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="210g" android:textColor="@color/white" android:textSize="16sp" android:textStyle="bold" app:layout_constraintStart_toStartOf="@id/tv_c_label" app:layout_constraintTop_toBottomOf="@id/tv_c_label"/>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <!-- Fats -->
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="0dp"
-                    android:layout_height="70dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_card_unselected">
-                    <View android:layout_width="4dp" android:layout_height="match_parent" android:background="@color/fats_yellow" app:layout_constraintStart_toStartOf="parent"/>
-                    <TextView android:id="@+id/tv_f_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="10dp" android:layout_marginTop="10dp" android:text="FATS" android:textColor="@color/white" android:alpha="0.6" android:textSize="8sp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"/>
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="64g" android:textColor="@color/white" android:textSize="16sp" android:textStyle="bold" app:layout_constraintStart_toStartOf="@id/tv_f_label" app:layout_constraintTop_toBottomOf="@id/tv_f_label"/>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </LinearLayout>
-
-            <!-- Featured Recipe (Breakfast) -->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cv_featured_recipe"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                app:cardBackgroundColor="@color/card_bg"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="0dp"
-                app:layout_constraintTop_toBottomOf="@id/ll_macros">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp">
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:scaleType="centerCrop"
-                            android:src="@android:drawable/ic_menu_gallery" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
-                            android:layout_marginEnd="12dp"
-                            android:background="@drawable/bg_card_unselected"
-                            android:backgroundTint="#80000000"
-                            android:paddingHorizontal="8dp"
-                            android:paddingVertical="4dp"
-                            android:text="420 KCAL"
-                            android:textColor="@color/primary_green"
-                            android:textSize="10sp"
-                            android:textStyle="bold"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="16dp">
-
-                        <TextView
-                            android:id="@+id/tv_meal_type"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="BREAKFAST"
-                            android:textColor="@color/white"
-                            android:alpha="0.5"
-                            android:textSize="10sp"
-                            android:textStyle="bold"
-                            android:letterSpacing="0.1"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/tv_recipe_title"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:layout_marginEnd="40dp"
-                            android:text="Avocado &amp; Poached Egg Toast"
-                            android:textColor="@color/white"
-                            android:textSize="20sp"
-                            android:textStyle="bold"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/tv_meal_type" />
-
-                        <View
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:background="@drawable/bg_capsule_selected"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/tv_recipe_title"
-                            app:layout_constraintBottom_toBottomOf="@id/tv_recipe_title" />
-
-                        <TextView
-                            android:id="@+id/tv_recipe_desc"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
-                            android:alpha="0.6"
-                            android:text="Two slices of sourdough bread topped with mashed avocado, chili flakes, and two organic poached eggs."
-                            android:textColor="@color/white"
-                            android:textSize="12sp"
-                            app:layout_constraintTop_toBottomOf="@id/tv_recipe_title" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
-                            android:orientation="horizontal"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/tv_recipe_desc">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/bg_card_unselected"
-                                android:paddingHorizontal="8dp"
-                                android:paddingVertical="4dp"
-                                android:text="HIGH PROTEIN"
-                                android:textColor="@color/white"
-                                android:alpha="0.6"
-                                android:textSize="8sp"
-                                android:textStyle="bold" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:background="@drawable/bg_card_unselected"
-                                android:paddingHorizontal="8dp"
-                                android:paddingVertical="4dp"
-                                android:text="15 MINS"
-                                android:textColor="@color/white"
-                                android:alpha="0.6"
-                                android:textSize="8sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- Lunch Card -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_lunch"
+            <!-- Day Selector -->
+            <HorizontalScrollView
+                android:id="@+id/hsv_days"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/bg_card_unselected"
-                android:padding="12dp"
-                app:layout_constraintTop_toBottomOf="@id/cv_featured_recipe">
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cv_lunch_img"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    app:cardCornerRadius="12dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent">
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
-                        android:src="@android:drawable/ic_menu_gallery" />
-                </androidx.cardview.widget.CardView>
-
-                <TextView
-                    android:id="@+id/tv_lunch_label"
+                android:scrollbars="none"
+                app:layout_constraintTop_toBottomOf="@id/cl_week_header">
+                <LinearLayout
+                    android:id="@+id/ll_days_container"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="LUNCH"
-                    android:textColor="@color/white"
-                    android:alpha="0.5"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@id/cv_lunch_img"
-                    app:layout_constraintTop_toTopOf="@id/cv_lunch_img" />
+                    android:orientation="horizontal" />
+            </HorizontalScrollView>
 
-                <TextView
-                    android:id="@+id/tv_lunch_title"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="Quinoa Salmon Bowl"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toStartOf="@id/iv_lunch_select"
-                    app:layout_constraintStart_toStartOf="@id/tv_lunch_label"
-                    app:layout_constraintTop_toBottomOf="@id/tv_lunch_label" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="580 KCAL"
-                    android:textColor="@color/primary_green"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="@id/tv_lunch_title"
-                    app:layout_constraintTop_toBottomOf="@id/tv_lunch_title" />
-
-                <ImageView
-                    android:id="@+id/iv_lunch_select"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@android:drawable/presence_invisible"
-                    app:tint="@color/white"
-                    android:alpha="0.3"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <!-- Dinner Card -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_dinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:background="@drawable/bg_card_unselected"
-                android:padding="12dp"
-                app:layout_constraintTop_toBottomOf="@id/cl_lunch">
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cv_dinner_img"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    app:cardCornerRadius="12dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent">
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
-                        android:src="@android:drawable/ic_menu_gallery" />
-                </androidx.cardview.widget.CardView>
-
-                <TextView
-                    android:id="@+id/tv_dinner_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="DINNER"
-                    android:textColor="@color/white"
-                    android:alpha="0.5"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@id/cv_dinner_img"
-                    app:layout_constraintTop_toTopOf="@id/cv_dinner_img" />
-
-                <TextView
-                    android:id="@+id/tv_dinner_title"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="Lean Steak &amp; Asparagus"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toStartOf="@id/iv_dinner_select"
-                    app:layout_constraintStart_toStartOf="@id/tv_dinner_label"
-                    app:layout_constraintTop_toBottomOf="@id/tv_dinner_label" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="620 KCAL"
-                    android:textColor="@color/primary_green"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="@id/tv_dinner_title"
-                    app:layout_constraintTop_toBottomOf="@id/tv_dinner_title" />
-
-                <ImageView
-                    android:id="@+id/iv_dinner_select"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@android:drawable/presence_invisible"
-                    app:tint="@color/white"
-                    android:alpha="0.3"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <!-- View Grocery List Button -->
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_grocery_list"
+            <TextView
+                android:id="@+id/tv_workout_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:layout_marginBottom="24dp"
-                android:background="@drawable/bg_get_started"
-                android:drawableStart="@android:drawable/ic_menu_send"
-                android:drawablePadding="8dp"
-                android:paddingHorizontal="24dp"
-                android:text="VIEW GROCERY LIST"
-                android:textColor="@color/bg_dark"
+                android:text="LOADING..."
+                android:textColor="@color/white"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/hsv_days" />
+
+            <TextView
+                android:id="@+id/tv_routine_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="TODAY'S EXERCISES"
+                android:textColor="@color/white"
+                android:alpha="0.6"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cl_dinner" />
+                app:layout_constraintTop_toBottomOf="@id/tv_workout_title" />
+
+            <!-- Exercises List -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_exercises"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_routine_label"
+                tools:listitem="@layout/item_exercise" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <!-- Full Screen Timer Overlay -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_timer_overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F2121212"
+        android:visibility="gone"
+        android:elevation="20dp"
+        android:clickable="true"
+        android:focusable="true">
+
+        <ImageButton
+            android:id="@+id/btn_close_timer"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_margin="16dp"
+            android:background="@android:color/transparent"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
+
+        <ProgressBar
+            android:id="@+id/pb_timer_circle"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="280dp"
+            android:layout_height="280dp"
+            android:indeterminate="false"
+            android:progressDrawable="@drawable/bg_timer_circle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_countdown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="05:00"
+            android:textColor="@color/white"
+            android:textSize="64sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/pb_timer_circle"
+            app:layout_constraintEnd_toEndOf="@id/pb_timer_circle"
+            app:layout_constraintStart_toStartOf="@id/pb_timer_circle"
+            app:layout_constraintTop_toTopOf="@id/pb_timer_circle" />
+
+        <TextView
+            android:id="@+id/tv_timer_exercise_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:text="Exercise Name"
+            android:textColor="@color/white"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/pb_timer_circle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_stop_resume"
+            android:layout_width="200dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="48dp"
+            android:background="@drawable/bg_get_started"
+            android:text="STOP"
+            android:textColor="@color/bg_dark"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pb_timer_circle" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

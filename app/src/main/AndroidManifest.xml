@@ -65,6 +65,10 @@
             android:name=".ProfileActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".RecipeDetailActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>

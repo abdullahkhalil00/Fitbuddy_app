@@ -15,7 +15,7 @@
     <item
         android:id="@+id/nav_grocery"
         android:icon="@android:drawable/ic_menu_gallery"
-        android:title="GROCERY" />
+        android:title="DIET" />
     <item
         android:id="@+id/nav_profile"
         android:icon="@android:drawable/ic_menu_myplaces"
