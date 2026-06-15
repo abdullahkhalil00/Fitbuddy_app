@@ -80,7 +80,6 @@ class WorkoutActivity : AppCompatActivity() {
     private fun generateDateList() {
         dateList.clear()
         val calendar = Calendar.getInstance()
-        // Rolling logic: start from today, show next 7 days
         for (i in 0..6) {
             dateList.add(calendar.time)
             calendar.add(Calendar.DAY_OF_YEAR, 1)
@@ -166,7 +165,7 @@ class WorkoutActivity : AppCompatActivity() {
                         val durationInt = durationStr.replace(" min", "").trim().toIntOrNull() ?: 5
                         
                         exerciseList.add(WorkoutExercise(
-                            name = name,
+                            name = name.trim(),
                             duration = durationInt,
                             category = category
                         ))
@@ -174,30 +173,75 @@ class WorkoutActivity : AppCompatActivity() {
                 }
                 
                 if (exerciseList.isEmpty()) loadDefaultExercises(category)
+                
+                // Mark as completed if already saved today
+                checkCompletedStatus()
                 adapter.notifyDataSetChanged()
             }.addOnFailureListener {
                 loadDefaultExercises(category)
+                checkCompletedStatus()
                 adapter.notifyDataSetChanged()
             }
     }
 
+    private fun checkCompletedStatus() {
+        val sharedPref = getSharedPreferences("WorkoutCache", Context.MODE_PRIVATE)
+        val today = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+        exerciseList.forEach { exercise ->
+            exercise.isCompleted = sharedPref.getBoolean("${today}_${exercise.name.trim()}", false)
+        }
+    }
+
     private fun loadDefaultExercises(category: String) {
-        exerciseList.add(WorkoutExercise("Warm up", 5, category))
-        exerciseList.add(WorkoutExercise("Main exercise", 10, category))
+        when (category) {
+            "Shoulders" -> {
+                exerciseList.add(WorkoutExercise("Shoulder press", 10, category))
+                exerciseList.add(WorkoutExercise("Lateral raises", 9, category))
+            }
+            "Chest" -> {
+                exerciseList.add(WorkoutExercise("Bench press", 12, category))
+                exerciseList.add(WorkoutExercise("Push ups", 8, category))
+            }
+            "Back" -> {
+                exerciseList.add(WorkoutExercise("Lat pull down", 10, category))
+                exerciseList.add(WorkoutExercise("Bent over row", 10, category))
+            }
+            "Biceps" -> {
+                exerciseList.add(WorkoutExercise("Hammer curls", 8, category))
+                exerciseList.add(WorkoutExercise("Barbell curls", 8, category))
+            }
+            "Triceps" -> {
+                exerciseList.add(WorkoutExercise("Skull crushers", 10, category))
+                exerciseList.add(WorkoutExercise("Tricep pushdown", 8, category))
+            }
+            "Legs" -> {
+                exerciseList.add(WorkoutExercise("Squats", 15, category))
+                exerciseList.add(WorkoutExercise("Leg press", 10, category))
+            }
+            "Abs" -> {
+                exerciseList.add(WorkoutExercise("Crunches", 5, category))
+                exerciseList.add(WorkoutExercise("Plank", 5, category))
+            }
+            else -> {
+                exerciseList.add(WorkoutExercise("Stretching", 10, category))
+                exerciseList.add(WorkoutExercise("Cardio", 15, category))
+            }
+        }
     }
 
     private fun saveProgressToCache(exerciseName: String, duration: Int) {
         val sharedPref = getSharedPreferences("WorkoutCache", Context.MODE_PRIVATE)
         val today = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+        val cleanName = exerciseName.trim()
         
-        val completed = sharedPref.getInt("${today}_completed", 0)
+        val currentExerciseMins = sharedPref.getInt("${today}_${cleanName}_mins", 0)
         
         with(sharedPref.edit()) {
-            putInt("${today}_completed", completed + duration)
-            putBoolean("${today}_${exerciseName}", true)
+            putInt("${today}_${cleanName}_mins", currentExerciseMins + duration)
+            putBoolean("${today}_${cleanName}", true)
             apply()
         }
-        Toast.makeText(this, "Exercise Completed!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "$cleanName Completed!", Toast.LENGTH_SHORT).show()
     }
 
     private fun setupBottomNav() {

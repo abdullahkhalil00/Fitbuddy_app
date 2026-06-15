@@ -20,7 +20,6 @@ class HomeFragment : Fragment() {
     private lateinit var db: FirebaseFirestore
     
     private lateinit var tvWelcome: TextView
-    private lateinit var tvProgressPercent: TextView
     private lateinit var tvProgressPercentCenter: TextView
     private lateinit var tvProgressDetail: TextView
     private lateinit var pbProgress: ProgressBar
@@ -35,7 +34,6 @@ class HomeFragment : Fragment() {
         db = FirebaseFirestore.getInstance()
 
         tvWelcome = view.findViewById(R.id.tv_welcome_name)
-        tvProgressPercent = view.findViewById(R.id.tv_calories_value)
         tvProgressPercentCenter = view.findViewById(R.id.tv_progress_percent_center)
         tvProgressDetail = view.findViewById(R.id.tv_calories_total)
         pbProgress = view.findViewById(R.id.pb_calories)
@@ -81,11 +79,10 @@ class HomeFragment : Fragment() {
             if (doc.exists()) {
                 doc.data?.forEach { (name, durationValue) ->
                     val durationInt = durationValue.toString().replace(" min", "").trim().toIntOrNull() ?: 5
-                    todayExercises.add(WorkoutExercise(name, durationInt, category))
+                    todayExercises.add(WorkoutExercise(name.trim(), durationInt, category))
                 }
             }
             
-            // Fallback if empty
             if (todayExercises.isEmpty()) {
                 loadDefaultExercises(category)
             }
@@ -100,7 +97,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun loadDefaultExercises(category: String) {
-        // Default values for common categories
         when (category) {
             "Shoulders" -> {
                 todayExercises.add(WorkoutExercise("Shoulder press", 10, category))
@@ -111,33 +107,46 @@ class HomeFragment : Fragment() {
                 todayExercises.add(WorkoutExercise("Push ups", 8, category))
             }
             else -> {
-                todayExercises.add(WorkoutExercise("Generic Exercise", 10, category))
+                todayExercises.add(WorkoutExercise("Stretching", 10, category))
+                todayExercises.add(WorkoutExercise("Cardio", 15, category))
             }
         }
     }
 
     private fun updateProgressUI() {
         if (!isAdded) return
-        val sharedPref = requireContext().getSharedPreferences("WorkoutCache", Context.MODE_PRIVATE)
+        val context = context ?: return
+        val sharedPref = context.getSharedPreferences("WorkoutCache", Context.MODE_PRIVATE)
         val today = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
-        val completedMins = sharedPref.getInt("${today}_completed", 0)
         
         var totalMins = 0
-        val completedMap = mutableMapOf<String, Boolean>()
-        todayExercises.forEach { 
-            totalMins += it.duration
-            completedMap[it.name] = sharedPref.getBoolean("${today}_${it.name}", false)
+        var totalCompletedMins = 0
+        val progressMap = mutableMapOf<String, Int>()
+        
+        todayExercises.forEach { exercise ->
+            totalMins += exercise.duration
+            val exerciseKey = "${today}_${exercise.name}_mins"
+            val mins = sharedPref.getInt(exerciseKey, 0)
+            progressMap[exercise.name] = mins
+            totalCompletedMins += mins
         }
 
-        val percent = if (totalMins > 0) (completedMins * 100) / totalMins else 0
-        val cappedPercent = if (percent > 100) 100 else percent
+        val percentage = if (totalMins > 0) {
+            (totalCompletedMins.toDouble() / totalMins.toDouble() * 100).toInt()
+        } else {
+            0
+        }
+        val cappedPercent = if (percentage > 100) 100 else percentage
         
-        tvProgressPercent.text = "$cappedPercent%"
         tvProgressPercentCenter.text = "$cappedPercent%"
+        
+        pbProgress.max = 100
+        pbProgress.progress = 0 // Reset to force visual update
         pbProgress.progress = cappedPercent
-        tvProgressDetail.text = "$completedMins of $totalMins min completed"
+        
+        tvProgressDetail.text = "$totalCompletedMins of $totalMins min completed"
 
-        exerciseAdapter = HomeExerciseAdapter(todayExercises, completedMap)
+        exerciseAdapter = HomeExerciseAdapter(todayExercises, progressMap)
         rvTodayExercises.adapter = exerciseAdapter
     }
 

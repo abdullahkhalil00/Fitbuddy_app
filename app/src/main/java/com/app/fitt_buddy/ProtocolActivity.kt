@@ -3,6 +3,8 @@ package com.app.fitt_buddy
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -30,6 +32,16 @@ class ProtocolActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        findViewById<ImageButton>(R.id.btn_back).setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
+
+        findViewById<TextView>(R.id.tv_login_link).setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+        }
         
         val cards = listOf(
             findViewById<View>(R.id.cl_advanced) to "Advanced",
@@ -56,6 +68,7 @@ class ProtocolActivity : AppCompatActivity() {
                 .update("experienceLevel", selectedLevel)
                 .addOnSuccessListener {
                     val intent = Intent(this, homeactivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
                     finish()
                 }

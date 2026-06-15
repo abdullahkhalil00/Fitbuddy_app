@@ -3,6 +3,7 @@ package com.app.fitt_buddy
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -31,6 +32,16 @@ class CommitmentActivity : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+
+        findViewById<ImageButton>(R.id.btn_back).setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
+
+        findViewById<TextView>(R.id.tv_login_link).setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
         }
 
         val durationOptions = listOf(
@@ -89,7 +100,6 @@ class CommitmentActivity : AppCompatActivity() {
                 .addOnSuccessListener {
                     val intent = Intent(this, BioActivity::class.java)
                     startActivity(intent)
-                    finish()
                 }
                 .addOnFailureListener { e ->
                     Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_SHORT).show()

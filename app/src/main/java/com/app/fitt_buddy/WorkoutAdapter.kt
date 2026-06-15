@@ -30,8 +30,18 @@ class WorkoutAdapter(
         holder.tvName.text = exercise.name
         holder.tvDuration.text = "${exercise.duration} min"
         
+        if (exercise.isCompleted) {
+            holder.btnStart.text = "DONE"
+            holder.btnStart.alpha = 0.6f
+        } else {
+            holder.btnStart.text = "START"
+            holder.btnStart.alpha = 1.0f
+        }
+        
         holder.btnStart.setOnClickListener {
             onStartClick(exercise)
+            exercise.isCompleted = true
+            notifyItemChanged(position)
         }
     }
 

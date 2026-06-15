@@ -1,6 +1,8 @@
 package com.app.fitt_buddy
 
 import android.os.Bundle
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -9,6 +11,8 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class homeactivity : AppCompatActivity() {
+
+    private var backPressedTime: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +44,24 @@ class homeactivity : AppCompatActivity() {
             loadFragment(fragment)
             true
         }
+
+        // Custom back button handling
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (bottomNav.selectedItemId != R.id.nav_home) {
+                    // If not on Home, navigate to Home
+                    bottomNav.selectedItemId = R.id.nav_home
+                } else {
+                    // If on Home, handle double press to exit
+                    if (backPressedTime + 2000 > System.currentTimeMillis()) {
+                        finish()
+                    } else {
+                        Toast.makeText(baseContext, "Press again to exit", Toast.LENGTH_SHORT).show()
+                    }
+                    backPressedTime = System.currentTimeMillis()
+                }
+            }
+        })
     }
 
     private fun loadFragment(fragment: Fragment) {

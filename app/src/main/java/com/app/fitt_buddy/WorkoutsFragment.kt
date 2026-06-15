@@ -74,8 +74,6 @@ class WorkoutsFragment : Fragment() {
         btnCloseTimer = view.findViewById(R.id.btn_close_timer)
 
         setupRecyclerView()
-        
-        // Rolling dates starting from today
         generateDateList()
         fetchUserData()
 
@@ -176,13 +174,24 @@ class WorkoutsFragment : Fragment() {
         
         val sharedPref = requireContext().getSharedPreferences("WorkoutCache", Context.MODE_PRIVATE)
         val today = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+        
+        val exerciseName = activeExercise?.name?.trim() ?: "Unknown"
+        val exSecsKey = "${today}_${exerciseName}_secs"
+        val exMinsKey = "${today}_${exerciseName}_mins"
+        
         val totalSecsToday = sharedPref.getInt("${today}_completed_secs", 0)
+        val exSecsToday = sharedPref.getInt(exSecsKey, 0)
         
         with(sharedPref.edit()) {
             val newTotalSecs = totalSecsToday + deltaSecs
             putInt("${today}_completed_secs", newTotalSecs)
             putInt("${today}_completed", newTotalSecs / 60)
-            if (isFinished) putBoolean("${today}_${activeExercise?.name}", true)
+            
+            val newExSecs = exSecsToday + deltaSecs
+            putInt(exSecsKey, newExSecs)
+            putInt(exMinsKey, newExSecs / 60)
+            
+            if (isFinished) putBoolean("${today}_$exerciseName", true)
             apply()
         }
     }
@@ -259,13 +268,37 @@ class WorkoutsFragment : Fragment() {
         db.collection("workout").document(category).get().addOnSuccessListener { doc ->
             if (!isAdded) return@addOnSuccessListener
             exerciseList.clear()
+            val sharedPref = requireContext().getSharedPreferences("WorkoutCache", Context.MODE_PRIVATE)
+            val today = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+            
             if (doc.exists()) {
                 doc.data?.forEach { (name, durationValue) ->
                     val durationInt = durationValue.toString().replace(" min", "").trim().toIntOrNull() ?: 5
-                    exerciseList.add(WorkoutExercise(name, durationInt, category))
+                    val exercise = WorkoutExercise(name.trim(), durationInt, category)
+                    exercise.isCompleted = sharedPref.getBoolean("${today}_${exercise.name}", false)
+                    exerciseList.add(exercise)
                 }
             }
+            
+            if (exerciseList.isEmpty()) loadDefaultExercises(category)
             adapter.notifyDataSetChanged()
+        }
+    }
+
+    private fun loadDefaultExercises(category: String) {
+        val sharedPref = requireContext().getSharedPreferences("WorkoutCache", Context.MODE_PRIVATE)
+        val today = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+        
+        val defaults = when (category) {
+            "Shoulders" -> listOf("Shoulder press" to 10, "Lateral raises" to 9)
+            "Chest" -> listOf("Bench press" to 12, "Push ups" to 8)
+            else -> listOf("Stretching" to 10, "Cardio" to 15)
+        }
+        
+        defaults.forEach { (name, duration) ->
+            val exercise = WorkoutExercise(name, duration, category)
+            exercise.isCompleted = sharedPref.getBoolean("${today}_${exercise.name}", false)
+            exerciseList.add(exercise)
         }
     }
 }
